@@ -2,8 +2,23 @@
 <html>
 	<head>
 		<title>Learn Words</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="learn_words.css" />
 	</head>
 	<body>
-hello world!
+		<div align="center">
+			<div id="results" data-bind="text: results"></div>
+			<div id="theQuestion" data-bind="text: theQuestion"></div>
+			<div id="feedback" data-bind="html: feedback"></div>
+			<input id="theAnswer" type="text" data-bind="visible: theQuestion()!=='', textInput: theAnswer, event: { keypress: onKeyPress }" />
+			<br />
+			<br />
+			<button id="button" data-bind="text: buttonText, click: onNext"></button>
+			<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js'></script>
+			<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+			<script type="text/javascript" src="learn_words.js"></script>
+		</div>
 	</body>
 </html>
