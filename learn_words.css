@@ -1,5 +1,11 @@
 body { padding: 1px; }
 
+#title {
+	padding: 10px;
+	font-weight: bold;
+	color: #3333ff;
+}
+
 
 #results {
 	padding: 10px;

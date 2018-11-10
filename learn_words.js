@@ -8,17 +8,21 @@ function ViewModel() {
 	var goodAnswerCtr = 0;
 	var expectedAnswer;
 
+	this.title = ko.observable("");
 	this.results = ko.observable("");
 	this.theQuestion = ko.observable("");
 	this.theAnswer = ko.observable("");
 	this.feedback = ko.observable("");
-	this.buttonText = ko.observable("Start");
+	this.buttonText = ko.observable("Start learning");
 
 	this.state = ko.observable("init");
 
+	fillUp();
+
 	this.onNext = function() {
 		if(self.state() === "init") {
-			fillUp();
+			//fillUp();
+			choose();
 		} else if(self.state()==="asking") {
 			evaluate();
 		} else if(self.state()==="practice") {
@@ -39,6 +43,7 @@ function ViewModel() {
 
 	function fillUp() {
 		$.get("https://spreadsheets.google.com/feeds/list/" + window.location.hash.substring(1) + "/od6/public/basic?alt=json", function(data, status){
+			self.title(data.feed.title.$t);
 			for(var i=0;i<data.feed.entry.length;i++) {
 				var row = data.feed.entry[i];
 				var content = row.content.$t;
@@ -47,7 +52,6 @@ function ViewModel() {
 					answer: content.substring(content.indexOf(" ") + 1)
 				});
 			}
-			choose();
 		});
 	}
 	
