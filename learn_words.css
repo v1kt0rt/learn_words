@@ -1,0 +1,23 @@
+body { padding: 1px; }
+
+
+#results {
+	padding: 10px;
+	font-size: 75%;
+}
+
+#theQuestion {
+	padding: 10px;
+	font-size: 125%;
+	font-weight: bold;
+}
+
+#theAnswer {
+	padding: 10px;
+	font-size: 125%;
+	font-weight: bold;
+}
+
+#feedback {
+	padding: 10px;
+}
