@@ -7,6 +7,7 @@ function ViewModel() {
 	var questionCtr = 0;
 	var goodAnswerCtr = 0;
 	var expectedAnswer;
+	var askedWordIndex;
 
 	this.title = ko.observable("");
 	this.results = ko.observable("");
@@ -49,16 +50,17 @@ function ViewModel() {
 				var content = row.content.$t;
 				words.push({
 					question: row.title.$t,
-					answer: content.substring(content.indexOf(" ") + 1)
+					answer: content.substring(content.indexOf(" ") + 1),
+					stats: []
 				});
 			}
 		});
 	}
 	
 	function choose() {
-		var index = Math.floor(Math.random() * words.length);
-		self.theQuestion(words[index].question);
-		expectedAnswer = words[index].answer;
+		askedWordIndex = Math.floor(Math.random() * words.length);
+		self.theQuestion(words[askedWordIndex].question);
+		expectedAnswer = words[askedWordIndex].answer;
 		self.feedback("Type the answer.");
 		self.theAnswer("");
 		$("#theAnswer").focus();
@@ -74,13 +76,19 @@ function ViewModel() {
 			self.results("All:" + questionCtr + " Good:" + goodAnswerCtr);
 			self.buttonText("Next word");
 			self.state("next");
+			updateStats(true);
 		} else {
 			self.feedback("The good answer would be: <b>" + expectedAnswer + "</b>. Type it.");
 			self.results("All:" + questionCtr + " Good:" + goodAnswerCtr);
 			self.theAnswer("");
 			$("#theAnswer").focus();
 			self.state("practice");
+			updateStats(false);
 		}
+	}
+	
+	function updateStats(isGood) {
+		words[askedWordIndex].stats.push([questionCtr, isGood]);
 	}
 
 	function check() {
